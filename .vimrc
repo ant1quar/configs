@@ -42,11 +42,15 @@ call plug#begin('~/.vim/plugged')
 call plug#end() 
 syntax on
 set re=0
+set number
+set relativenumber 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+let NERDTreeShowHidden=1
+autocmd FileType nerdtree nmap <buffer> <left> u
 let g:coc_global_extensions = [ 'coc-tsserver' ]
 
 let g:prettier#autoformat = 1
@@ -64,7 +68,6 @@ let g:airline_theme = "palenight" " template
 
 let $FZF_DEFAULT_OPTS    = '--reverse'
 let $FZF_DEFAULT_COMMAND = "rg --files --hidden --glob '!.git/**'"
-
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -77,6 +80,8 @@ nmap <leader>n :NERDTreeFocus<CR>
 nmap <C-n> :NERDTree<CR>
 nmap <C-t> :NERDTreeToggle<CR>
 nmap <C-s> :NERDTreeFind<CR>
+nmap <C-g> :bn<CR>
+nmap <C-S-g> :bp<CR>
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
